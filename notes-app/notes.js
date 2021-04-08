@@ -29,6 +29,23 @@ const addNote = (title, author) => {
 
 }
 
+const removeNote = (title) => {
+    const notes = loadNotes()
+    const notesToKeep = notes.filter(note => {
+        return note.title != title
+    })
+
+
+    if (notesToKeep.length < notes.length) {
+        console.log(chalk.blue('Note removed!'))
+        saveNotes(notesToKeep)
+
+    } else {
+        console.log(chalk.red("Note doesn't exists!"))
+
+    }
+}
+
 const saveNotes = notes => {
     const dataJSON = JSON.stringify(notes)
     fs.writeFileSync('notes.json', dataJSON)
@@ -44,5 +61,5 @@ const loadNotes = () => {
     }
 }
 
-export default { addNote, getNotes, saveNotes, loadNotes }
+export default { addNote, getNotes, saveNotes, loadNotes, removeNote }
 // export const { getnotes, addnotes }
